@@ -1,30 +1,31 @@
-import React from 'react'
-import { StyleSheet, View,Text, TouchableOpacity } from 'react-native'
+import React from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
 
+export const Todo = ({ todo }) => {
+  const dispatch = useDispatch();
+  console.log(todo, "todo");
 
-export const Todo = ({todo, onRemove}) => {
+  const longPressHandler = () => {
+    dispatch({ type: "delete", payload: todo.id });
+  };
 
-    const longPressHandler = () => {
-        onRemove(todo.id)
-    }
-
-    return(
-        <TouchableOpacity activeOpacity={0.5} onPress={() => console.log("1111")} onLongPress={longPressHandler}>
-        <View style={styles.todo}>
-            <Text>{todo.title}</Text>
-        </View>
-        </TouchableOpacity>
-    )
-}
+  return (
+    <TouchableOpacity activeOpacity={0.5} onLongPress={longPressHandler}>
+      <View style={styles.todo}>
+        <Text>{todo.text}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
-    todo: {
-        flexDirection:'row',
-        alignItems: 'center',
-        padding: 15,
-        borderWidth: 1,
-        borderColor: '#eee',
-        borderRadius: 5 
-
-    }
-})
+  todo: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 15,
+    borderWidth: 1,
+    borderColor: "#eee",
+    borderRadius: 5,
+  },
+});
